@@ -2,12 +2,7 @@ FROM microsoft/windowsservercore
 
 # Download Links:
 ENV sql_express_download_url "https://go.microsoft.com/fwlink/?linkid=829176"
-
 ENV sa_password "_"
-
-# make install files accessible
-COPY start.ps1 /
-WORKDIR /
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
@@ -20,5 +15,10 @@ RUN stop-service MSSQL`$SQLEXPRESS ; \
         set-itemproperty -path 'HKLM:\software\microsoft\microsoft sql server\mssql14.SQLEXPRESS\mssqlserver\supersocketnetlib\tcp\ipall' -name tcpdynamicports -value '' ; \
         set-itemproperty -path 'HKLM:\software\microsoft\microsoft sql server\mssql14.SQLEXPRESS\mssqlserver\supersocketnetlib\tcp\ipall' -name tcpport -value 1433 ; \
         set-itemproperty -path 'HKLM:\software\microsoft\microsoft sql server\mssql14.SQLEXPRESS\mssqlserver\' -name LoginMode -value 2 ;
+
+
+# make install files accessible
+COPY start.ps1 /
+WORKDIR /
 
 ENTRYPOINT .\start -Verbose
