@@ -4,7 +4,7 @@
 
 param(
 [Parameter(Mandatory=$false)]
-[string]$sa_password,
+[string]$sa_password
 
 )
 
