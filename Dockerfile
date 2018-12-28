@@ -2,7 +2,7 @@ FROM microsoft/windowsservercore
 
 # Download Links:
 ENV sql_express_download_url "https://go.microsoft.com/fwlink/?linkid=829176"
-ENV sa_password "_"
+ENV sa_password="_"
 
 SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
 
