@@ -9,9 +9,13 @@ param(
 )
 
 
+
 # start the service
 Write-Verbose "Starting SQL Server"
 start-service MSSQL`$SQLEXPRESS
+
+Write-Verbose "Setting max RAM of 800MB"
+sqlcmd -Q 'USE master; EXEC sp_configure "show advanced options", 1;RECONFIGURE;EXEC sp_configure "max server memory (MB)", 800; RECONFIGURE WITH OVERRIDE;EXEC sp_configure "show advanced options", 0;'
 
 if($sa_password -ne "_")
 {
@@ -27,7 +31,7 @@ Write-Verbose "Started SQL Server."
 $lastCheck = (Get-Date).AddSeconds(-2) 
 while ($true) 
 { 
-    Get-EventLog -LogName Application -Source "MSSQL*" -After $lastCheck | Select-Object TimeGenerated, EntryType, Message	 
+    Get-EventLog -LogName Application -Source "MSSQL*" -After $lastCheck | Select-Object TimeGenerated, EntryType, Message   
     $lastCheck = Get-Date 
     Start-Sleep -Seconds 2 
 }
