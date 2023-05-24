@@ -15,12 +15,12 @@ Write-Verbose "Starting SQL Server"
 start-service MSSQL`$SQLEXPRESS
 
 Write-Verbose "Setting max RAM of 800MB"
-sqlcmd -Q 'USE master; EXEC sp_configure "show advanced options", 1;RECONFIGURE;EXEC sp_configure "max server memory (MB)", 800; RECONFIGURE WITH OVERRIDE;EXEC sp_configure "show advanced options", 0;'
+sqlcmd -Q "USE master; EXEC sp_configure 'show advanced options', 1;RECONFIGURE;EXEC sp_configure 'max server memory (MB)', 800; RECONFIGURE WITH OVERRIDE;EXEC sp_configure 'show advanced options', 0;"
 
 if($sa_password -ne "_")
 {
     Write-Verbose "Changing SA login credentials"
-    $sqlcmd = "ALTER LOGIN sa with password=" +"'" + $sa_password + "'" + ";ALTER LOGIN sa ENABLE;"
+    $sqlcmd = "ALTER LOGIN sa with password='$sa_password';ALTER LOGIN sa ENABLE;"
     & sqlcmd -Q $sqlcmd
 }
 

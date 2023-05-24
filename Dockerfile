@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/windows/servercore:ltsc2019
+FROM mcr.microsoft.com/windows/servercore:ltsc2022
 
 # Download Links:
 ENV sql_express_download_url "https://go.microsoft.com/fwlink/?linkid=829176"
