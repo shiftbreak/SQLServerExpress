@@ -15,7 +15,7 @@ Write-Verbose "Starting SQL Server"
 start-service MSSQL`$SQLEXPRESS
 
 Write-Verbose "Setting max RAM of 800MB"
-sqlcmd -S 127.0.0. -Q "USE master; EXEC sp_configure 'show advanced options', 1;RECONFIGURE;EXEC sp_configure 'max server memory (MB)', 800; RECONFIGURE WITH OVERRIDE;EXEC sp_configure 'show advanced options', 0;"
+sqlcmd -S 127.0.0.1 -Q "USE master; EXEC sp_configure 'show advanced options', 1;RECONFIGURE;EXEC sp_configure 'max server memory (MB)', 800; RECONFIGURE WITH OVERRIDE;EXEC sp_configure 'show advanced options', 0;"
 
 if($sa_password -ne "_")
 {
